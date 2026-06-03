@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Температура мониторинга</title>
+    <link rel="stylesheet" href="/style/style.css">
+
+</head>
+
+<body>
+    <div class="block">
+        <h1>Система мониторинга температуры</h1>
+        <div class="text">
+            <p>Температура: <span id="temp" style="color: rgb(121, 242, 255);">--</span> <span style="color: rgb(121, 242, 255);">°C</span></p>
+            <p>Охлаждение: <span id="cool" style="color: rgb(121, 242, 255);">--</span></p>
+        </div>
+        
+
+        <button onclick="turnOn()">Включить охлаждение</button>
+        <button onclick="turnOff()">Выключить охлаждение</button>
+    </div>
+    
+
+<script>
+    async function update() {
+        const data = await fetch('/status').then(r => r.json());
+        document.getElementById('temp').innerText = data.temperature;
+        document.getElementById('cool').innerText = data.cooling ? 'Вкл' : 'Выкл';
+    }
+
+    function turnOn() { fetch('/cooling/on'); update(); }
+    function turnOff() { fetch('/cooling/off'); update(); }
+
+    setInterval(update, 2000);
+    update();
+</script>
+</body>
+
+</html>
