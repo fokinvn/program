@@ -1,0 +1,6 @@
+{
+  "temp_threshold": 30,
+  "sensor_file": "data/temperature.txt",
+  "cooling_gpio_pin": 17,
+  "gpio_path": "gpio_emu"
+}
